@@ -10,7 +10,7 @@ public:
 	Group(FitnessFunc fitnessFunc, double fitness_threshold, int p, double cross_rate, double mutate_rate);
 	~Group();
 	vector<Individual<numofbit> > getIndividuals() { return _individuals; }
-	double getFitness_threshold() { return _fitness_threshold };
+	double getFitness_threshold() { return _fitness_threshold; }
 	//群体初始化
 	void init(vector<Individual<numofbit> >);
 	//群体评估,并返回最大适应度个体
@@ -104,6 +104,7 @@ vector<Individual<numofbit> > Group<numofbit>::select(int n)
 			}
 		}
 	}
+	delete weights;
 	return selection;
 }
 
