@@ -56,13 +56,13 @@ unsigned Individual<numofbit>::getRandomNum(int x)
 	{
 
 		LARGE_INTEGER nStartCounter;
-
+		
 		::QueryPerformanceCounter(&nStartCounter);
 
 		::srand((unsigned)nStartCounter.LowPart);
 
 	}
-	return rand() % x;
+	return double(rand())/RAND_MAX * x;
 }
 
 
@@ -70,9 +70,10 @@ template<int numofbit>
 bitset<numofbit> Individual<numofbit>::getRandomChromosome()
 {
 
-	double max = pow(2, numofbit);
+	double max = pow(2, numofbit) -1;
 	bitset<numofbit> randomChromosome;
-	randomChromosome = bitset<numofbit>(getRandomNum(max));
+	double randnum = getRandomNum(max);
+	randomChromosome = bitset<numofbit>(randnum);
 	return randomChromosome;
 }
 
@@ -102,7 +103,7 @@ template<int numofbit>
 Individual<numofbit>::Individual(const Individual& copy)
 {
 	_chromosome = copy._chromosome;
-	_fitness = 0;
+	_fitness = copy._fitness;
 }
 template<int numofbit>
 void Individual<numofbit>::crossover(Individual<numofbit>& mate, int numOfTagBit) {
@@ -119,6 +120,7 @@ template<int numofbit>
 void Individual<numofbit>::mutate(int numOfTagBit) {
 	for (int i = 0;i < numOfTagBit;i++) {
 		int index = getRandomNum(numofbit);
+		//cout << numofbit << "  rand  " << index << endl;
 		_chromosome[index] = !_chromosome[index];
 	}
 }
