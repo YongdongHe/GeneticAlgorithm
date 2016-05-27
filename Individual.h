@@ -62,6 +62,7 @@ unsigned Individual<numofbit>::getRandomNum(int x)
 		::srand((unsigned)nStartCounter.LowPart);
 
 	}
+	//return rand() % x;
 	return double(rand())/RAND_MAX * x;
 }
 
